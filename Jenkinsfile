@@ -39,7 +39,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 container('maven') {
-                    git url: 'https://github.com/Abhi84481/Mavendemo.git', branch: 'main'
+                    git url: 'https://github.com/Abhi84481/devopspoc.git', branch: 'main'
                 }
             }
         }
