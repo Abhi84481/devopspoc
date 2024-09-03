@@ -63,7 +63,7 @@ pipeline {
         stage('Prepare JMeter Test') {
             steps {
                 container('maven') {
-                    sh 'cp src/test/jmeter/test-plan.jmx /home/jenkins/agent/workspace/test-plan.jmx'
+                    sh 'cp tests/jmeter/hello-world-test-plan.jmx /home/jenkins/agent/workspace/hello-world-test-plan.jmx'
                 }
             }
         }
@@ -71,7 +71,7 @@ pipeline {
         stage('Run JMeter Tests') {
             steps {
                 container('jmeter') {
-                    sh 'jmeter -n -t /home/jenkins/agent/workspace/test-plan.jmx -l /home/jenkins/agent/workspace/results.jtl'
+                    sh 'jmeter -n -t /home/jenkins/agent/workspace/hello-world-test-plan.jmx -l /home/jenkins/agent/workspace/results.jtl'
                 }
             }
         }
