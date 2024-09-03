@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            label 'maven-kaniko'
+            label 'maven-jmeter'
             defaultContainer 'maven'
             yaml """
             apiVersion: v1
@@ -18,23 +18,15 @@ pipeline {
                 command:
                 - cat
                 tty: true
-              - name: kaniko
-                image: gcr.io/kaniko-project/executor:latest
-                args:
-                - "--dockerfile=Dockerfile"
-                - "--destination=${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${ARTIFACT_NAME}:${TAG}"
-                - "--context=/workspace/"
-                volumeMounts:
-                - name: kaniko-secret
-                  mountPath: /kaniko/.docker/
-              volumes:
-              - name: kaniko-secret
-                secret:
-                  secretName: gcr-json-key
+              - name: gcloud
+                image: google/cloud-sdk:latest
+                command:
+                - cat
+                tty: true
             """
         }
     }
-
+    
     environment {
         PROJECT_ID = 'devsecops-poc-433005'
         REPO_NAME = 'maven-test'
@@ -92,11 +84,15 @@ pipeline {
             }
         }
 
-        stage('Build and Push to GAR') {
+        stage('Push to GAR') {
             steps {
-                container('kaniko') {
+                container('gcloud') {
                     withCredentials([usernamePassword(credentialsId: 'gcp-username-password', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'kaniko --dockerfile=Dockerfile --destination=${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${ARTIFACT_NAME}:${TAG} --context=/workspace/'
+                        sh """
+                        gcloud auth configure-docker ${GAR_LOCATION}-docker.pkg.dev
+                        docker tag hello-world:1.0-SNAPSHOT ${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${ARTIFACT_NAME}:${TAG}
+                        docker push ${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${ARTIFACT_NAME}:${TAG}
+                        """
                     }
                 }
             }
@@ -105,9 +101,7 @@ pipeline {
 
     post {
         always {
-            node {
-                cleanWs()
-            }
+            cleanWs()
         }
     }
 }
