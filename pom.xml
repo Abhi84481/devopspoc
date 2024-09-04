@@ -56,11 +56,11 @@
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
-            <url>http://35.230.66.19:8081/repository/maven-releases/</url>
+            <url>http://35.230.66.19:8081/repository/devops-poc-repo/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
-            <url>http://35.230.66.19:8081/repository/maven-snapshots/</url>
+            <url>http://35.230.66.19:8081/repository/devops-poc-repo/</url>
         </snapshotRepository>
     </distributionManagement>
 
