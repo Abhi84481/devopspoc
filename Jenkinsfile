@@ -87,6 +87,8 @@ pipeline {
             steps {
                 container('maven') {
                     withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'NEXUS_PASS', usernameVariable: 'NEXUS_USER')]) {
+                        echo "Username used is :${NEXUS_USER}"
+                        echo "Pass used is :${NEXUS_PASS}"
                         sh """
                         mvn deploy -X -DaltDeploymentRepository=${REPO_ID}::default::${NEXUS_URL}/${REPO_ID}/ -Dnexus.user=${NEXUS_USER} -Dnexus.password=${NEXUS_PASS}
                         """
