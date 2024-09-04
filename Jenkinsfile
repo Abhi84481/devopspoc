@@ -91,7 +91,7 @@ pipeline {
                         echo "Repository ID: ${REPO_ID}"
                         echo "Using Nexus Username: ${NEXUS_USER}"
                         sh """
-                        mvn deploy -X -DaltDeploymentRepository=${REPO_ID}::default::${NEXUS_URL}/${REPO_ID}/ -Dnexus.user=${NEXUS_USER} -Dnexus.password=${NEXUS_PASS}
+                        mvn deploy -X -DaltDeploymentRepository=${REPO_ID}/::default::${NEXUS_URL}/${REPO_ID}/ -Dnexus.user=${NEXUS_USER} -Dnexus.password=${NEXUS_PASS}
                         """
                     }
                 }
