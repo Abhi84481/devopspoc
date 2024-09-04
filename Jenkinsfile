@@ -72,7 +72,7 @@ pipeline {
             steps {
                 container('jmeter') {
                     sh 'jmeter -n -t /home/jenkins/agent/workspace/hello-world-test-plan.jmx -l /home/jenkins/agent/workspace/results.jtl'
-                    sh 'cd /home/jenkins/agent/workspace/results.jtl'
+                    sh 'cd /home/jenkins/agent/workspace/'
                     sh 'ls -l'
                 }
             }
