@@ -55,11 +55,11 @@
 
     <distributionManagement>
         <repository>
-            <id>devops-poc-repo</id>
-            <url>http://35.230.66.19:8081/repository/devops-poc-repo/</url>
+            <id>maven-releases</id>
+            <url>http://35.230.66.19:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
+            <id>maven-snapshots</id>
             <url>http://35.230.66.19:8081/repository/devops-poc-repo/</url>
         </snapshotRepository>
     </distributionManagement>
