@@ -29,8 +29,8 @@ pipeline {
     
     environment {
         NEXUS_URL = 'http://35.230.66.19:8081/repository'
-        REPO_ID = 'nexus-releases'
-        SNAPSHOT_REPO_ID = 'nexus-snapshots'
+        REPO_ID = 'maven-releases'
+        SNAPSHOT_REPO_ID = 'maven-snapshots'
         ARTIFACT_NAME = 'hello-world'
     }
 
