@@ -60,7 +60,7 @@
         </repository>
         <snapshotRepository>
             <id>maven-snapshots</id>
-            <url>http://35.230.66.19:8081/repository/devops-poc-repo/</url>
+            <url>http://35.230.66.19:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
