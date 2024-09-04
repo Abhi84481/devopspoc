@@ -63,7 +63,7 @@ pipeline {
             steps {
                 container('maven') {
                     sh 'cp tests/jmeter/hello-world-test-plan.jmx /home/jenkins/agent/workspace/hello-world-test-plan.jmx'
-                    sh 'cd /home/jenkins/agent/workspace/'
+                    sh 'cd /home/jenkins/agent/workspace/target'
                     sh 'ls -l'
                 }
             }
