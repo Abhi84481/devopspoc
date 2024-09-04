@@ -28,11 +28,10 @@ pipeline {
     }
     
     environment {
-        PROJECT_ID = 'devsecops-poc-433005'
-        REPO_NAME = 'maven-test'
+        NEXUS_URL = 'http://35.230.66.19:8081/repository'
+        REPO_ID = 'nexus-releases'
+        SNAPSHOT_REPO_ID = 'nexus-snapshots'
         ARTIFACT_NAME = 'hello-world'
-        TAG = "${env.BUILD_NUMBER}"
-        GAR_LOCATION = "us-west1"
     }
 
     stages {
@@ -84,14 +83,12 @@ pipeline {
             }
         }
 
-        stage('Push to GAR') {
+        stage('Push to Nexus') {
             steps {
-                container('gcloud') {
-                    withCredentials([usernamePassword(credentialsId: 'gcp-username-password', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                container('maven') {
+                    withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'NEXUS_PASS', usernameVariable: 'NEXUS_USER')]) {
                         sh """
-                        gcloud auth configure-docker ${GAR_LOCATION}-docker.pkg.dev
-                        docker tag hello-world:1.0-SNAPSHOT ${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${ARTIFACT_NAME}:${TAG}
-                        docker push ${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${ARTIFACT_NAME}:${TAG}
+                        mvn deploy -DaltDeploymentRepository=${REPO_ID}::default::${NEXUS_URL}/${REPO_ID}/ -Dnexus.user=${NEXUS_USER} -Dnexus.password=${NEXUS_PASS}
                         """
                     }
                 }
