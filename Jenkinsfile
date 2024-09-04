@@ -28,7 +28,7 @@ pipeline {
     }
     
     environment {
-        NEXUS_URL = 'http://35.230.66.19:8081/repository/'
+        NEXUS_URL = 'http://35.230.66.19:8081/repository'
         REPO_ID = 'devops-poc-repo'
         SNAPSHOT_REPO_ID = 'maven-snapshots'
         ARTIFACT_NAME = 'hello-world'
