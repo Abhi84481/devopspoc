@@ -62,6 +62,7 @@ pipeline {
         stage('Prepare JMeter Test') {
             steps {
                 container('maven') {
+                    sh 'mkdir -p /home/jenkins/agent/workspace/demo4/src/test/jmeter'
                     sh 'cp tests/jmeter/hello-world-test-plan.jmx /home/jenkins/agent/workspace/hello-world-test-plan.jmx'
                 }
             }
