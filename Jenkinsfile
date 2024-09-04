@@ -59,25 +59,25 @@ pipeline {
             }
         }
 
-        stage('Prepare JMeter Test') {
-            steps {
-                container('maven') {
-                    sh 'cp tests/jmeter/hello-world-test-plan.jmx /home/jenkins/agent/workspace/hello-world-test-plan.jmx'
-                    sh 'cd /home/jenkins/agent/workspace/target'
-                    sh 'ls -l'
-                }
-            }
-        }
+        // stage('Prepare JMeter Test') {
+        //     steps {
+        //         container('maven') {
+        //             sh 'cp tests/jmeter/hello-world-test-plan.jmx /home/jenkins/agent/workspace/hello-world-test-plan.jmx'
+        //             sh 'cd /home/jenkins/agent/workspace/target'
+        //             sh 'ls -l'
+        //         }
+        //     }
+        // }
 
-        stage('Run JMeter Tests') {
-            steps {
-                container('jmeter') {
-                    sh 'jmeter -n -t /home/jenkins/agent/workspace/hello-world-test-plan.jmx -l /home/jenkins/agent/workspace/results.jtl'
-                    sh 'cd /home/jenkins/agent/workspace/'
-                    sh 'ls -l'
-                }
-            }
-        }
+        // stage('Run JMeter Tests') {
+        //     steps {
+        //         container('jmeter') {
+        //             sh 'jmeter -n -t /home/jenkins/agent/workspace/hello-world-test-plan.jmx -l /home/jenkins/agent/workspace/results.jtl'
+        //             sh 'cd /home/jenkins/agent/workspace/'
+        //             sh 'ls -l'
+        //         }
+        //     }
+        // }
 
         stage('Archive Artifacts') {
             steps {
